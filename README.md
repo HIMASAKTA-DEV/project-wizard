@@ -4,11 +4,12 @@
 
 ProjectWizard adalah platform berbasis AI yang dirancang untuk membantu Project Manager dan Developer dalam melakukan breakdown kebutuhan software. Dari ide kasar hingga menjadi dokumen spesifikasi teknis (PDF) yang siap eksekusi.
 
-![ProjectWizard Preview](https://via.placeholder.com/1280x720/000000/FFFFFF?text=ProjectWizard+Web+Preview)
+![ProjectWizard Preview](/docs/landing_page.png)
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Fitur Utama  
+![ProjectWizard Summary](/docs/summary_page.png)
 - **AI-Powered Interview**: Wawancara mendalam yang adaptif untuk menangkap detail fungsionalitas.
 - **Detailed Technical Breakdown**: Menganalisis kebutuhan akun (admin vs public), arsitektur halaman, dan fitur konten.
 - **Instant PDF Blueprint**: Dokumen spesifikasi teknis yang dapat diunduh langsung.
@@ -71,4 +72,4 @@ ProjectWizard adalah platform berbasis AI yang dirancang untuk membantu Project 
 ## 📜 Lisensi & Catatan
 Laporan PDF yang dihasilkan **tidak disimpan di server** kami untuk menjamin keamanan data pengguna. Harap segera mengunduh laporan setelah inisiasi selesai.
 
-Dibuat dengan ❤️ oleh **HIMASAKTA DEV** © 2026.
+Made with ❤️ by **HIMASAKTA DEV** © 2026.
