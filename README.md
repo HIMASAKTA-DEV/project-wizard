@@ -9,13 +9,13 @@ ProjectWizard adalah platform berbasis AI yang dirancang untuk membantu Project 
 ---
 
 ## ✨ Fitur Utama  
-![ProjectWizard Summary](/docs/summary_page.png)
 - **AI-Powered Interview**: Wawancara mendalam yang adaptif untuk menangkap detail fungsionalitas.
 - **Detailed Technical Breakdown**: Menganalisis kebutuhan akun (admin vs public), arsitektur halaman, dan fitur konten.
 - **Instant PDF Blueprint**: Dokumen spesifikasi teknis yang dapat diunduh langsung.
 - **Discord Integration**: Notifikasi real-time dan pengiriman laporan otomatis ke server Discord.
 - **Local History**: Menyimpan riwayat proyek Anda secara lokal di browser.
 
+![ProjectWizard Summary](/docs/summary_page.png)
 ---
 
 ## 🛠️ Tech Stack
