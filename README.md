@@ -4,6 +4,8 @@
 
 ProjectWizard adalah platform berbasis AI yang dirancang untuk membantu Project Manager dan Developer dalam melakukan breakdown kebutuhan software. Dari ide kasar hingga menjadi dokumen spesifikasi teknis (PDF) yang siap eksekusi.
 
+**Demo:** [project-wizard-delta.vercel.app](https://project-wizard-delta.vercel.app/)
+
 ![ProjectWizard Preview](/docs/landing_page.png)
 
 ---

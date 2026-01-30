@@ -28,7 +28,8 @@ export const QuestionCard = ({ question, index }: QuestionCardProps) => {
         conversation,
         answers,
         sessionId,
-        historyLog
+        historyLog,
+        loadProject
     } = useStore();
 
     const assistantMessageCount = conversation.filter(c => c.role === 'assistant').length;
@@ -231,7 +232,11 @@ export const QuestionCard = ({ question, index }: QuestionCardProps) => {
                                         <div className={`overflow-hidden transition-all duration-700 ${showHistory ? 'max-h-[300px] opacity-100' : 'max-h-16 opacity-10 grayscale pointer-events-none'}`}>
                                             <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 no-scrollbar pb-10">
                                                 {historyLog.map((log, i) => (
-                                                    <div key={i} className="p-4 glass rounded-[32px] border border-white/5 space-y-2 bg-white/[0.02]">
+                                                    <div
+                                                        key={i}
+                                                        onClick={() => loadProject(log)}
+                                                        className="p-4 glass rounded-[32px] border border-white/5 space-y-2 bg-white/[0.02] cursor-pointer hover:bg-white/[0.08] hover:border-white/20 transition-all active:scale-[0.98] pointer-events-auto"
+                                                    >
                                                         <div className="flex justify-between items-center text-[10px] font-mono text-white/20">
                                                             <span className="font-bold text-white/40">{log.projectName}</span>
                                                             <div className="flex items-center gap-1 opacity-50"><Clock className="w-3 h-3" /> {log.timestamp}</div>

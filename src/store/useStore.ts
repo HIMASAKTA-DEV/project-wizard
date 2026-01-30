@@ -22,6 +22,8 @@ export interface HistoryLogItem {
     timestamp: string;
     projectName: string;
     qa: { q: string, a: string }[];
+    summary: any;
+    answers: Record<string, any>;
 }
 
 interface ProjectState {
@@ -45,6 +47,8 @@ interface ProjectState {
     setComplete: (status: boolean, summary?: any) => void;
     setMood: (mood: ProjectState['mood']) => void;
     saveToHistory: () => void;
+    loadProject: (historyItem: HistoryLogItem) => void;
+    resetProject: () => void;
 }
 
 const generateId = () => Math.random().toString(36).substring(2, 11).toUpperCase();
@@ -131,15 +135,49 @@ export const useStore = create<ProjectState>()(
                     }
                 }
 
-                const newLogItem = {
+                const newLogItem: HistoryLogItem = {
                     timestamp: new Date().toLocaleString('id-ID'),
                     projectName,
-                    qa
+                    qa,
+                    summary: state.summary,
+                    answers: state.answers
                 };
 
                 const newHistory = [newLogItem, ...state.historyLog].slice(0, 25);
                 set({ historyLog: newHistory });
-            }
+            },
+
+            loadProject: (historyItem) => set({
+                isStarted: true,
+                isComplete: true,
+                summary: historyItem.summary,
+                answers: historyItem.answers,
+                isThinking: false
+            }),
+
+            resetProject: () => set({
+                sessionId: `SESSION-${generateId()}`,
+                isStarted: false,
+                isComplete: false,
+                isThinking: false,
+                currentStep: 0,
+                conversation: [
+                    {
+                        role: 'assistant',
+                        content: "Selamat datang di ProjectWizard. Mari kita bangun visi Anda. Apa nama atau ide utama proyek Anda?",
+                        question: {
+                            id: 'project_name',
+                            type: 'text',
+                            text: "Mari kita mulai dengan nama. Apa yang sedang kita bangun?",
+                            suggestion: "Misal: Aplikasi E-commerce untuk UMKM"
+                        },
+                        timestamp: new Date().toISOString()
+                    }
+                ],
+                answers: {},
+                summary: null,
+                mood: 'blue'
+            })
         }),
         {
             name: 'project-wizard-storage',

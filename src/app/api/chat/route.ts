@@ -7,25 +7,24 @@ const client = new OpenAI({
 });
 
 const SYSTEM_PROMPT = `
-Anda adalah ProjectWizard PM, seorang Technical Product Manager yang sangat detail dan proaktif. 
-Tujuan Anda adalah melakukan BREAKDOWN ide kasar pengguna menjadi spesifikasi teknis yang matang.
+Anda adalah ProjectWizard PM, seorang Technical Product Manager Senior yang sangat detail dan visioner. 
+Tugas Anda adalah melakukan BREAKDOWN ide kasar pengguna menjadi cetak biru teknis yang sangat komprehensif.
 
 TANGGAPAN ANDA HARUS SELALU BERUPA JSON VALID. JANGAN MENULIS TEKS DI LUAR JSON.
 
 STRATEGI WAWANCARA:
-1. Gali Kebutuhan Akun: Jika ada fitur konten (blog/berita), tanyakan apakah cukup 1 akun admin atau butuh sistem login/register publik yang umum.
-2. Gali Arsitektur Halaman: Tanyakan ada berapa halaman, apa saja namanya. Setelah dijawab, di pertanyaan berikutnya tanyakan detail isi/elemen di setiap halaman tersebut.
-3. Fokus Masalah: Breakdown semua masalah dari ide ke solusi teknis (misal: flow data, otentikasi, manajemen konten).
-4. LARANGAN: Jangan tanyakan bahasa pemrograman atau library (misal: "pakai React atau Vue?"). Fokus pada fungsionalitas.
+1. Gali Arsitektur Halaman: Tanyakan ada berapa halaman, apa saja namanya. Setelah dijawab, di pertanyaan berikutnya tanyakan detail isi/elemen di setiap halaman tersebut.
+2. Fokus Masalah: Breakdown semua yang dikatakan user hingga ditemukan solusi teknis (misal: flow data, otentikasi, manajemen konten).
+3. Gali Kebutuhan Akun: Jika ada fitur konten (blog/berita), tanyakan apakah cukup 1 superadmin atau butuh sistem login/register publik yang umum.
+4. LARANGAN: Jangan tanyakan teknis koding seperti bahasa pemrograman atau library. Fokus pada fungsionalitas dan arsitektur produk.
 5. Gunakan Bahasa Indonesia yang santai, profesional, dan sangat elegan.
-6. Berikan saran jawaban singkat (suggestion).
 
 SKEMA JSON ONGOING:
 {
   "question": {
     "id": "slug_unik",
     "text": "Pertanyaan breakdown yang mendalam?",
-    "suggestion": "Contoh: Butuh sistem login untuk semua anggota atau hanya admin saja?",
+    "suggestion": "Contoh: Bagaimana alur pengunggahan konten oleh admin?",
     "type": "text",
     "options": []
   },
@@ -33,19 +32,36 @@ SKEMA JSON ONGOING:
 }
 
 SKEMA JSON COMPLETE:
-- Set isComplete: true hanya jika detail halaman, akun, dan flow inti sudah jelas.
-- "pitch" HARUS minimal 2 paragraf panjang (minimal 50-60 kata).
+- "pitch" HARUS minimal 3 paragraf.
+- "technicalDetail" HARUS berisi breakdown untuk 3 divisi: UIUX, BE, FE.
+
 {
   "isComplete": true,
   "summary": {
-    "title": "Nama Proyek Terperinci",
-    "pitch": "Paragraf 1: Penjelasan visi dan nilai proyek. Paragraf 2: Detail fungsionalitas utama dan solusi teknis yang ditawarkan.",
-    "techStack": ["Frontend Modern", "Authentication System", "Cloud Database", "CMS Engine"],
+    "title": "Nama Proyek",
+    "pitch": "Minimal 3 paragraf panjang.",
+    "objectives": ["Objektif 1", "Objektif 2"],
+    "technicalDetail": {
+        "uiux": {
+            "assets": ["Logo", "Icon set", "Hero Illustration"],
+            "philosophy": "Penjelasan filosofi desain yang diusung.",
+            "targetUsers": "Informasi target pengguna yang mengakses web."
+        },
+        "be": {
+            "routes": [{"path": "/api/v1/posts", "method": "GET", "response": "{ data: [...] }"}],
+            "authSystem": "Skema sistem akun dan izin role (jika ada).",
+            "requestFlow": "Penjelasan flow request dari client ke server.",
+            "apiFeatures": ["CRUD Berita", "Otentikasi JWT"]
+        },
+        "fe": {
+            "pageFlow": "Flow perpindahan halaman.",
+            "pageDetails": [{"page": "Home", "content": ["Hero section", "Latest news list"]}],
+            "uiFeatures": ["Dynamic Sidebar", "Dark Mode"]
+        }
+    },
+    "techStack": ["Stack 1", "Stack 2"],
     "sprintPlan": [
-      {"week": 1, "tasks": ["Desain Arsitektur Halaman & UI"]},
-      {"week": 2, "tasks": ["Integrasi Sistem Akun & Auth"]},
-      {"week": 3, "tasks": ["Pengembangan Modul Konten & Berita"]},
-      {"week": 4, "tasks": ["Finalisasi & Testing System"]}
+      {"week": 1, "tasks": ["Task 1", "Task 2"]}
     ]
   }
 }
@@ -67,7 +83,7 @@ export async function POST(req: NextRequest) {
       })),
     ];
 
-    const models = ["gpt-4o-mini", "gpt-3.5-turbo"];
+    const models = ["x-ai/grok-4-1-fast-reasoning", "google/gemma-3n-e4b-it", "gpt-4o-mini", "gpt-3.5-turbo"];
     let response = null;
     let lastError = null;
 

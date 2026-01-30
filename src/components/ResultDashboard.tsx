@@ -2,17 +2,17 @@
 
 import { motion } from "framer-motion";
 import { useStore } from "@/store/useStore";
-import { CheckCircle2, Code2, Layout, Server, Rocket, Download, Share2, Send, Info, Sparkles, AlertCircle } from "lucide-react";
+import { CheckCircle2, Code2, Layout, Server, Rocket, Download, Share2, Send, Info, Sparkles, AlertCircle, RotateCcw } from "lucide-react";
 import { sendDiscordFile, sendDiscordMessage } from "@/lib/discord";
 import { generateProjectPDF } from "@/lib/pdf";
 import { useState } from "react";
 
 export const ResultDashboard = () => {
-    const { summary, answers, sessionId } = useStore();
+    const { summary, answers = {}, sessionId, resetProject } = useStore();
     const [isSending, setIsSending] = useState(false);
 
     const data = summary || {
-        title: answers.project_name || "Proyek Baru",
+        title: answers?.project_name || "Proyek Baru",
         pitch: "Laporan blueprint teknis sedang disiapkan.",
         techStack: ["React", "TypeScript", "Node.js"],
         sprintPlan: [
@@ -54,15 +54,26 @@ export const ResultDashboard = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
                     <header className="space-y-4">
-                        <div className="flex items-center gap-3">
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="px-4 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full w-fit uppercase tracking-widest border border-emerald-500/30"
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="px-4 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full w-fit uppercase tracking-widest border border-emerald-500/30"
+                                >
+                                    Inisiasi Selesai
+                                </motion.div>
+                                <span className="text-white/10 font-mono text-[10px]">#{sessionId}</span>
+                            </div>
+
+                            <motion.button
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                onClick={resetProject}
+                                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/30 hover:text-white transition-colors px-4 py-2 bg-white/5 rounded-full border border-white/5 hover:border-white/10 pointer-events-auto"
                             >
-                                Inisiasi Selesai
-                            </motion.div>
-                            <span className="text-white/10 font-mono text-[10px]">#{sessionId}</span>
+                                <RotateCcw className="w-3 h-3" /> Mulai Baru
+                            </motion.button>
                         </div>
                         <h1 className="text-5xl font-bold tracking-tight">{data.title}</h1>
                         <div className="space-y-4">
